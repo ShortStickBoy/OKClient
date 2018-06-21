@@ -1,8 +1,8 @@
 package com.sunzn.http.client.library.request;
 
 import com.sunzn.http.client.library.OKClient;
-import com.sunzn.http.client.library.base.BaseRequest;
 import com.sunzn.http.client.library.base.BaseHandler;
+import com.sunzn.http.client.library.base.BaseRequest;
 
 import java.util.concurrent.TimeUnit;
 
@@ -55,9 +55,9 @@ public class RequestCall {
         return request;
     }
 
-    public void execute(BaseHandler callback) {
-        buildCall(callback);
-        OKClient.getInstance().execute(this, callback);
+    public void execute(BaseHandler handler) {
+        buildCall(handler);
+        OKClient.getInstance().execute(this, handler);
     }
 
     private void buildCall(BaseHandler callback) {
@@ -80,8 +80,8 @@ public class RequestCall {
         }
     }
 
-    private Request generateRequest(BaseHandler callback) {
-        return baseRequest.generateRequest(callback);
+    private Request generateRequest(BaseHandler handler) {
+        return baseRequest.generateRequest(handler);
     }
 
 }
