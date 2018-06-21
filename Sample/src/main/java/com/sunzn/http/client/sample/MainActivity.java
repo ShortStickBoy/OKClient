@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static String[] PERMISSIONS = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
-    private final String TAG = "OKClient";
+    public static final String TAG = "OKClient";
 
     private String token;
 
