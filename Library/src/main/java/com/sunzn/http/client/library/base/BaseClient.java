@@ -6,5 +6,4 @@ public class BaseClient {
 
     public static OkHttpClient client = new OkHttpClient();
 
-
 }
