@@ -4,6 +4,7 @@ import com.sunzn.http.client.library.OKClient;
 import com.sunzn.http.client.library.base.BaseHandler;
 import com.sunzn.http.client.library.base.BaseRequest;
 
+import java.net.Proxy;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -22,6 +23,7 @@ public class RequestCall {
     private long connTimeOut;
 
     private CookieJar cookieJar;
+    private Proxy proxy;
 
     public RequestCall(BaseRequest request) {
         this.baseRequest = request;
@@ -47,6 +49,11 @@ public class RequestCall {
         return this;
     }
 
+    public RequestCall proxy(Proxy proxy) {
+        this.proxy = proxy;
+        return this;
+    }
+
     public Call getCall() {
         return call;
     }
@@ -62,22 +69,42 @@ public class RequestCall {
 
     private void buildCall(BaseHandler callback) {
         request = generateRequest(callback);
-        if (readTimeOut > 0 || writeTimeOut > 0 || connTimeOut > 0 || cookieJar != null) {
-            readTimeOut = readTimeOut > 0 ? readTimeOut : OKClient.DEFAULT_MILLISECONDS;
-            writeTimeOut = writeTimeOut > 0 ? writeTimeOut : OKClient.DEFAULT_MILLISECONDS;
-            connTimeOut = connTimeOut > 0 ? connTimeOut : OKClient.DEFAULT_MILLISECONDS;
+        if (isParamChange()) {
 
-            OkHttpClient client = OKClient.getInstance().getOkHttpClient().newBuilder()
-                    .readTimeout(readTimeOut, TimeUnit.MILLISECONDS)
-                    .writeTimeout(writeTimeOut, TimeUnit.MILLISECONDS)
-                    .connectTimeout(connTimeOut, TimeUnit.MILLISECONDS)
-                    .cookieJar(cookieJar)
-                    .build();
+            OkHttpClient.Builder builder = OKClient.getInstance().getOkHttpClient().newBuilder();
 
+            if (connTimeOut <= 0) {
+                connTimeOut = OKClient.DEFAULT_MILLISECONDS;
+            }
+            builder = builder.connectTimeout(connTimeOut, TimeUnit.MILLISECONDS);
+
+            if (readTimeOut <= 0) {
+                readTimeOut = OKClient.DEFAULT_MILLISECONDS;
+            }
+            builder = builder.readTimeout(readTimeOut, TimeUnit.MILLISECONDS);
+
+            if (writeTimeOut <= 0) {
+                writeTimeOut = OKClient.DEFAULT_MILLISECONDS;
+            }
+            builder = builder.writeTimeout(writeTimeOut, TimeUnit.MILLISECONDS);
+
+            if (cookieJar != null) {
+                builder = builder.cookieJar(cookieJar);
+            }
+
+            if (proxy != null) {
+                builder = builder.proxy(proxy);
+            }
+
+            OkHttpClient client = builder.build();
             call = client.newCall(request);
         } else {
             call = OKClient.getInstance().getOkHttpClient().newCall(request);
         }
+    }
+
+    private boolean isParamChange() {
+        return connTimeOut > 0 || readTimeOut > 0 || writeTimeOut > 0 || cookieJar != null || proxy != null;
     }
 
     private Request generateRequest(BaseHandler handler) {
