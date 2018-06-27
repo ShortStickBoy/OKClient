@@ -24,8 +24,8 @@ public class WebService {
      * ╚════════════════════════════════════════════════════════════════════════════════════════════
      */
     public static String getUploadUrl(String path, String ext) {
-//        return "http://192.168.107.112:8340/scholar/upload/" + path + "/" + ext + "/submit.action";
-        return "http://192.168.21.120:8080/upload/" + path + "/" + ext + "/submit.action";
+        return "http://192.168.107.112:8340/scholar/upload/" + path + "/" + ext + "/submit.action";
+//        return "http://192.168.21.120:8080/upload/" + path + "/" + ext + "/submit.action";
     }
 
     /**

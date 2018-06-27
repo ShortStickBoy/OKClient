@@ -21,6 +21,7 @@ import com.sunzn.http.client.library.handler.TextHandler;
 import com.sunzn.utils.library.DeviceUtils;
 
 import java.io.File;
+import java.net.Proxy;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         params.put("redirect_uri", Config.REDIRECT_URI);
         params.put("scope", Config.SCOPE);
 
-        OKClient.get().url(WebService.getAuthUrl()).headers(headers).params(params).build().execute(new TextHandler() {
+        OKClient.get().url(WebService.getAuthUrl()).headers(headers).params(params).build().proxy(Proxy.NO_PROXY).execute(new TextHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, String response) {
                 Log.e(TAG, headers.toString());
@@ -194,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         File file = new File(Environment.getExternalStorageDirectory(), "messenger_01.png");
         Log.e(TAG, file.getAbsolutePath());
+        Log.e(TAG, file.getName());
         if (!file.exists()) {
             Toast.makeText(MainActivity.this, "文件不存在，请修改文件路径", Toast.LENGTH_SHORT).show();
             return;
@@ -212,6 +214,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .headers(headers)
                 .build()
                 .execute(new TextHandler() {
+
+                    @Override
+                    public void inProgress(float progress, long total) {
+                        Log.e(TAG, "progress = " + progress);
+                    }
+
                     @Override
                     public void onSuccess(int statusCode, Headers headers, String response) {
                         Log.e(TAG, response);
