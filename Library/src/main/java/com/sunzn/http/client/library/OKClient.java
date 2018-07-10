@@ -27,7 +27,7 @@ import static com.sunzn.http.client.library.utils.Method.PUT;
 
 public class OKClient extends BaseClient {
 
-    public static final long DEFAULT_MILLISECONDS = 10_000L;
+    public static final long DEFAULT_MILLISECONDS = 40_000L;
     private volatile static OKClient mInstance;
 
     private OkHttpClient mOkHttpClient;
