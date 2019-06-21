@@ -273,9 +273,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void downFile() {
 
-        String url = "http://wap.cnki.net/apk/Android/CNKIClient_Version5.5.6.apk";
+//        String url = "http://wap.cnki.net/apk/Android/CNKIClient_Version5.5.6.apk";
+        String url = "http://bianke.cnki.net/pulpit/api/GetFileApi/GetBlogPic?fileId=201812200939571372931.jpg";
 
-        OKClient.get().url(url).build().execute(new FileHandler(Environment.getExternalStorageDirectory().getAbsolutePath(), "CNKI.APK") {
+//        OKClient.get().url(url).build().execute(new FileHandler(Environment.getExternalStorageDirectory().getAbsolutePath(), "CNKI.APK") {
+        OKClient.get().url(url).build().execute(new FileHandler(Environment.getExternalStorageDirectory().getAbsolutePath(), "CNKI.jpg") {
 
             @Override
             public void inProgress(float progress, long total) {
