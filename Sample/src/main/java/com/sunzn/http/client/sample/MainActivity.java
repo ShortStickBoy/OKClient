@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Map<String, String> params = new LinkedHashMap<>();
         params.put("client_id", Config.CLIENT_ID);
         params.put("client_secret", Config.CLIENT_SECRET);
-        params.put("client_sn", DeviceUtils.getDeviceId(this));
+        params.put("client_sn", DeviceUtils.getDeviceId(this,"SN1234567889"));
         params.put("response_type", Config.RESPONSE_TYPE);
         params.put("grant_type", Config.GRANT_TYPE_OAUTH);
         params.put("redirect_uri", Config.REDIRECT_URI);
