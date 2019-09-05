@@ -32,7 +32,7 @@ public class PostStringRequest extends BaseRequest {
 
     @Override
     public RequestBody buildRequestBody() {
-        return RequestBody.create(mediaType, content);
+        return RequestBody.create(content, mediaType);
     }
 
     @Override

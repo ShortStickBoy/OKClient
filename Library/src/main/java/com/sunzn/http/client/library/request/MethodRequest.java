@@ -34,7 +34,7 @@ public class MethodRequest extends BaseRequest {
             Exceptions.illegalArgument("requestBody and content can not be null in method:" + method);
         }
         if (requestBody == null && !TextUtils.isEmpty(content)) {
-            requestBody = RequestBody.create(MEDIA_TYPE_PLAIN, content);
+            requestBody = RequestBody.create(content, MEDIA_TYPE_PLAIN);
         }
         return requestBody;
     }

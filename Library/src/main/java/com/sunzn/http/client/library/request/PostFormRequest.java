@@ -1,9 +1,9 @@
 package com.sunzn.http.client.library.request;
 
 import com.sunzn.http.client.library.OKClient;
+import com.sunzn.http.client.library.base.BaseHandler;
 import com.sunzn.http.client.library.base.BaseRequest;
 import com.sunzn.http.client.library.builder.PostFormBuilder;
-import com.sunzn.http.client.library.base.BaseHandler;
 
 import java.io.UnsupportedEncodingException;
 import java.net.FileNameMap;
@@ -39,7 +39,7 @@ public class PostFormRequest extends BaseRequest {
             addParams(builder);
             for (int i = 0; i < files.size(); i++) {
                 PostFormBuilder.FileInput fileInput = files.get(i);
-                RequestBody fileBody = RequestBody.create(MediaType.parse(guessMimeType(fileInput.filename)), fileInput.file);
+                RequestBody fileBody = RequestBody.create(fileInput.file, MediaType.parse(guessMimeType(fileInput.filename)));
                 builder.addFormDataPart(fileInput.name, fileInput.filename, fileBody);
             }
             return builder.build();
@@ -79,7 +79,7 @@ public class PostFormRequest extends BaseRequest {
     private void addParams(MultipartBody.Builder builder) {
         if (params != null && !params.isEmpty()) {
             for (String key : params.keySet()) {
-                builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"" + key + "\""), RequestBody.create(null, params.get(key)));
+                builder.addPart(Headers.of("Content-Disposition", "form-data; name=\"" + key + "\""), RequestBody.create(params.get(key), null));
             }
         }
     }
