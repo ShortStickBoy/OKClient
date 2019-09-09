@@ -27,7 +27,7 @@ public abstract class FileHandler extends BaseHandler<File> {
 
     public File saveFile(Response response) throws IOException {
         InputStream is = null;
-        byte[] buf = new byte[2048];
+        byte[] buf = new byte[10240];
         int len;
         FileOutputStream fos = null;
         try {
