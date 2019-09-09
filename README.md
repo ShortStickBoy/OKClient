@@ -1,12 +1,12 @@
 # OKClient
 
-[![](https://jitpack.io/v/ShortStickBoy/OKClient.svg)](https://jitpack.io/#ShortStickBoy/OKClient)
+[![](https://jitpack.io/v/com.sunzn/OKClient.svg)](https://jitpack.io/#com.sunzn/OKClient)
 [![](https://img.shields.io/badge/License-Apache%202.0-orange.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 ### Gradle
 ```groovy
 dependencies {
-    implementation 'com.sunzn:OKClient:1.1.7'
+    implementation 'com.sunzn:OKClient:1.1.8'
 }
 ```
 
