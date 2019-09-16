@@ -41,7 +41,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':Library')
-    implementation 'com.squareup.okhttp3:okhttp:4.0.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.0'
     implementation 'com.github.ShortStickBoy:AndroidUtil:1.8.5'
     implementation 'com.alibaba:fastjson:1.2.57'
     implementation 'com.lovedise:permissiongen:0.0.6'
