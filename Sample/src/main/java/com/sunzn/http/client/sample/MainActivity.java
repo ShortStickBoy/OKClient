@@ -106,13 +106,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Map<String, String> params = new LinkedHashMap<>();
         params.put("client_id", Config.CLIENT_ID);
         params.put("client_secret", Config.CLIENT_SECRET);
-        params.put("client_sn", DeviceUtils.getDeviceId(this,"SN1234567889"));
+        params.put("client_sn", DeviceUtils.getDeviceId(this, "SN1234567889"));
         params.put("response_type", Config.RESPONSE_TYPE);
         params.put("grant_type", Config.GRANT_TYPE_OAUTH);
         params.put("redirect_uri", Config.REDIRECT_URI);
         params.put("scope", Config.SCOPE);
 
-        OKClient.get().url(WebService.getAuthUrl()).headers(headers).params(params).build().proxy(Proxy.NO_PROXY).execute(new TextHandler() {
+        OKClient.get().tag(this).url(WebService.getAuthUrl()).headers(headers).params(params).build().proxy(Proxy.NO_PROXY).execute(new TextHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, String response) {
                 Log.e(TAG, headers.toString());
@@ -364,6 +364,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @PermissionFail(requestCode = 100)
     private void onPermissionFail() {
         Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        OKClient.getInstance().cancel(this);
     }
 
 }
