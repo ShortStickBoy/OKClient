@@ -20,6 +20,12 @@ public class GetBuilder extends BaseBuilder<GetBuilder> implements HasParams<Get
     }
 
     @Override
+    public GetBuilder tag(Object tag) {
+        this.tag = tag;
+        return this;
+    }
+
+    @Override
     public GetBuilder addHeader(String key, String value) {
         if (this.headers == null) {
             headers = new LinkedHashMap<>();
@@ -39,7 +45,7 @@ public class GetBuilder extends BaseBuilder<GetBuilder> implements HasParams<Get
         if (params != null && !params.isEmpty()) {
             url = buildUrl(url, params);
         }
-        return new GetRequest(url, headers, params).build();
+        return new GetRequest(url, tag, headers, params).build();
     }
 
     private String buildUrl(String url, Map<String, String> params) {

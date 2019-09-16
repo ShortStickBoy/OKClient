@@ -26,6 +26,12 @@ public class MethodBuilder extends BaseBuilder<MethodBuilder> {
     }
 
     @Override
+    public MethodBuilder tag(Object tag) {
+        this.tag = tag;
+        return this;
+    }
+
+    @Override
     public MethodBuilder addHeader(String key, String value) {
         if (this.headers == null) {
             this.headers = new LinkedHashMap<>();
@@ -52,7 +58,7 @@ public class MethodBuilder extends BaseBuilder<MethodBuilder> {
 
     @Override
     public RequestCall build() {
-        return new MethodRequest(url, headers, params, method, content, requestBody).build();
+        return new MethodRequest(url, tag, headers, params, method, content, requestBody).build();
     }
 
 }

@@ -15,6 +15,7 @@ import com.sunzn.http.client.library.utils.UIExecutor;
 import java.io.IOException;
 import java.util.concurrent.Executor;
 
+import kotlin.jvm.Synchronized;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
@@ -103,6 +104,11 @@ public class OKClient extends BaseClient {
             public void onResponse(@NonNull Call call, @NonNull Response response) {
 
                 try {
+                    if (call.isCanceled()) {
+                        execFailure(new IOException("canceled!"), finalListener);
+                        return;
+                    }
+
                     if (!finalListener.validateResponse(response)) {
                         execFailure(new IOException("response code is : " + response.code()), finalListener);
                         return;
@@ -122,21 +128,33 @@ public class OKClient extends BaseClient {
     }
 
     private void execSuccess(final int code, final Headers headers, final Object o, final BaseHandler listener) {
-        mUIExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                listener.onSuccess(code, headers, o);
-            }
-        });
+        if (listener != null) {
+            mUIExecutor.execute(() -> listener.onSuccess(code, headers, o));
+        }
     }
 
     private void execFailure(final Exception e, final BaseHandler listener) {
-        mUIExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                listener.onFailure(e);
+        if (listener != null) {
+            mUIExecutor.execute(() -> listener.onFailure(e));
+        }
+    }
+
+    @Synchronized
+    public void cancel(Object tag) {
+        for (Call call : mOkHttpClient.dispatcher().queuedCalls()) {
+            if (tag.equals(call.request().tag())) {
+                call.cancel();
             }
-        });
+        }
+        for (Call call : mOkHttpClient.dispatcher().runningCalls()) {
+            if (tag.equals(call.request().tag())) {
+                call.cancel();
+            }
+        }
+    }
+
+    public void cancelAll() {
+        mOkHttpClient.dispatcher().cancelAll();
     }
 
 }

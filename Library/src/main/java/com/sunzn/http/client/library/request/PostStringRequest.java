@@ -16,8 +16,8 @@ public class PostStringRequest extends BaseRequest {
     private String content;
     private MediaType mediaType;
 
-    public PostStringRequest(String url, Map<String, String> headers, Map<String, String> params, String content, MediaType mediaType) {
-        super(url, headers, params);
+    public PostStringRequest(String url, Object tag, Map<String, String> headers, Map<String, String> params, String content, MediaType mediaType) {
+        super(url, tag, headers, params);
         this.content = content;
         this.mediaType = mediaType;
 

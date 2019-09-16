@@ -31,6 +31,12 @@ public class PostStringBuilder extends BaseBuilder<PostStringBuilder> {
     }
 
     @Override
+    public PostStringBuilder tag(Object tag) {
+        this.tag = tag;
+        return this;
+    }
+
+    @Override
     public PostStringBuilder addHeader(String key, String value) {
         if (this.headers == null) {
             headers = new LinkedHashMap<>();
@@ -47,7 +53,7 @@ public class PostStringBuilder extends BaseBuilder<PostStringBuilder> {
 
     @Override
     public RequestCall build() {
-        return new PostStringRequest(url, headers, params, content, mediaType).build();
+        return new PostStringRequest(url, tag, headers, params, content, mediaType).build();
     }
 
 }

@@ -21,6 +21,12 @@ public class PostFormBuilder extends BaseBuilder<PostFormBuilder> implements Has
     }
 
     @Override
+    public PostFormBuilder tag(Object tag) {
+        this.tag = tag;
+        return this;
+    }
+
+    @Override
     public PostFormBuilder addHeader(String key, String value) {
         if (this.headers == null) {
             headers = new LinkedHashMap<>();
@@ -37,7 +43,7 @@ public class PostFormBuilder extends BaseBuilder<PostFormBuilder> implements Has
 
     @Override
     public RequestCall build() {
-        return new PostFormRequest(url, headers, params, files).build();
+        return new PostFormRequest(url, tag, headers, params, files).build();
     }
 
     @Override

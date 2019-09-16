@@ -9,8 +9,8 @@ import okhttp3.RequestBody;
 
 public class GetRequest extends BaseRequest {
 
-    public GetRequest(String url, Map<String, String> headers, Map<String, String> params) {
-        super(url, headers, params);
+    public GetRequest(String url, Object tag, Map<String, String> headers, Map<String, String> params) {
+        super(url, tag, headers, params);
     }
 
     @Override

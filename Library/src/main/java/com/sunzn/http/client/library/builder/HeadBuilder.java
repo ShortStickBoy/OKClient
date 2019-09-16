@@ -8,7 +8,7 @@ public class HeadBuilder extends GetBuilder {
 
     @Override
     public RequestCall build() {
-        return new MethodRequest(url, headers, params, Method.HEAD, null, null).build();
+        return new MethodRequest(url, tag, headers, params, Method.HEAD, null, null).build();
     }
-    
+
 }

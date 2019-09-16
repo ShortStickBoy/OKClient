@@ -21,8 +21,8 @@ public class MethodRequest extends BaseRequest {
     private String content;
     private String method;
 
-    public MethodRequest(String url, Map<String, String> headers, Map<String, String> params, String method, String content, RequestBody requestBody) {
-        super(url, headers, params);
+    public MethodRequest(String url, Object tag, Map<String, String> headers, Map<String, String> params, String method, String content, RequestBody requestBody) {
+        super(url, tag, headers, params);
         this.requestBody = requestBody;
         this.content = content;
         this.method = method;

@@ -23,8 +23,8 @@ public class PostFormRequest extends BaseRequest {
 
     private List<PostFormBuilder.FileInput> files;
 
-    public PostFormRequest(String url, Map<String, String> headers, Map<String, String> params, List<PostFormBuilder.FileInput> files) {
-        super(url, headers, params);
+    public PostFormRequest(String url, Object tag, Map<String, String> headers, Map<String, String> params, List<PostFormBuilder.FileInput> files) {
+        super(url, tag, headers, params);
         this.files = files;
     }
 

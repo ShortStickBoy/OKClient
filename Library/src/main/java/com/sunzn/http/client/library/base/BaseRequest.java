@@ -12,12 +12,14 @@ import okhttp3.RequestBody;
 public abstract class BaseRequest {
 
     public String url;
+    public Object tag;
     public Map<String, String> headers;
     public Map<String, String> params;
     public Request.Builder builder = new Request.Builder();
 
-    public BaseRequest(String url, Map<String, String> headers, Map<String, String> params) {
+    public BaseRequest(String url, Object tag, Map<String, String> headers, Map<String, String> params) {
         this.url = url;
+        this.tag = tag;
         this.headers = headers;
         this.params = params;
 
@@ -27,7 +29,7 @@ public abstract class BaseRequest {
     }
 
     private void initBuilder() {
-        builder.url(url);
+        builder.url(url).tag(tag);
         addHeaders();
     }
 
