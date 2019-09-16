@@ -6,7 +6,7 @@
 ### Gradle
 ```groovy
 dependencies {
-    implementation 'com.sunzn:OKClient:1.1.8'
+    implementation 'com.sunzn:OKClient:1.1.9'
 }
 ```
 
