@@ -1,6 +1,6 @@
 package com.sunzn.http.client.library;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.sunzn.http.client.library.base.BaseClient;
 import com.sunzn.http.client.library.base.BaseHandler;
