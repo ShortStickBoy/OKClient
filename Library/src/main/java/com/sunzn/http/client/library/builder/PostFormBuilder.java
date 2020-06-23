@@ -61,6 +61,22 @@ public class PostFormBuilder extends BaseBuilder<PostFormBuilder> implements Has
         return this;
     }
 
+    public PostFormBuilder files(List<FileInput> inputs) {
+        this.files.addAll(inputs);
+        return this;
+    }
+
+    public PostFormBuilder files(Map<String, File> files) {
+        for (String name : files.keySet()) {
+            File file = files.get(name);
+            if (file != null && file.exists()) {
+                String fileName = file.getName();
+                this.files.add(new FileInput(name, fileName, file));
+            }
+        }
+        return this;
+    }
+
     public PostFormBuilder files(String name, Map<String, File> files) {
         for (String filename : files.keySet()) {
             this.files.add(new FileInput(name, filename, files.get(filename)));
