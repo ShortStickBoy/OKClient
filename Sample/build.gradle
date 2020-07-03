@@ -41,7 +41,7 @@ dependencies {
     implementation project(':Library')
     implementation 'com.squareup.okhttp3:okhttp:4.7.2'
     implementation 'com.github.ShortStickBoy:AndroidUtil:1.8.5'
-    implementation 'com.alibaba:fastjson:1.2.62'
+    implementation 'com.alibaba:fastjson:1.2.70'
     implementation 'com.lovedise:permissiongen:0.0.6'
     compileOnly 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
