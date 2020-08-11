@@ -7,9 +7,16 @@
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="临时授权" />
 
         <Button
             android:id="@+id/button1"
@@ -64,6 +71,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="put方法" />
+
+        <Button
+            android:id="@+id/button10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="加载图片" />
 
     </LinearLayout>
 

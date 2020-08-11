@@ -1,5 +1,7 @@
 package com.sunzn.http.client.library.builder;
 
+import androidx.annotation.NonNull;
+
 import com.sunzn.http.client.library.base.BaseBuilder;
 import com.sunzn.http.client.library.request.PostFormRequest;
 import com.sunzn.http.client.library.request.RequestCall;
@@ -100,6 +102,7 @@ public class PostFormBuilder extends BaseBuilder<PostFormBuilder> implements Has
             this.file = file;
         }
 
+        @NonNull
         @Override
         public String toString() {
             return "FileInput{" + "name='" + name + '\'' + ", filename='" + filename + '\'' + ", file=" + file + '}';

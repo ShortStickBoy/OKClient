@@ -1,14 +1,18 @@
 package com.sunzn.http.client.sample;
 
 import android.Manifest;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -16,6 +20,7 @@ import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.sunzn.http.client.library.OKClient;
+import com.sunzn.http.client.library.handler.BitmapHandler;
 import com.sunzn.http.client.library.handler.FileHandler;
 import com.sunzn.http.client.library.handler.TextHandler;
 import com.sunzn.utils.library.DeviceUtils;
@@ -45,11 +50,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private String token;
 
+    private LinearLayout holder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        holder = findViewById(R.id.container);
+
+        findViewById(R.id.button0).setOnClickListener(this);
         findViewById(R.id.button1).setOnClickListener(this);
         findViewById(R.id.button2).setOnClickListener(this);
         findViewById(R.id.button3).setOnClickListener(this);
@@ -59,11 +69,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.button7).setOnClickListener(this);
         findViewById(R.id.button8).setOnClickListener(this);
         findViewById(R.id.button9).setOnClickListener(this);
+        findViewById(R.id.button10).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.button0:
+                getAuth();
+                break;
             case R.id.button1:
                 get();
                 break;
@@ -91,7 +105,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button9:
                 put();
                 break;
+            case R.id.button10:
+                image();
+                break;
         }
+    }
+
+    private void getAuth() {
+        Map<String, String> headers = new LinkedHashMap<>();
+        headers.put("API-Version", "V5");
+        headers.put("AppKey", AppKey);
+        headers.put("ClientType", App);
+        headers.put("Referer", Referer);
+        headers.put("AppSecret", AppSecret);
+
+        Map<String, String> params = new LinkedHashMap<>();
+        params.put("appid", Config.CLIENT_ID);
+        params.put("secret", Config.CLIENT_SECRET);
+        params.put("claimedid", DeviceUtils.getDeviceId(this, "SN1234567889"));
+        OKClient.get().url("https://xyz.cnki.net/cnkioauth/api/auth/access/token.html").headers(headers).params(params).build().execute(new TextHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, String response) {
+                Log.e(TAG, response);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                Log.e(TAG, e.toString());
+            }
+        });
     }
 
     private void get() {
@@ -347,6 +389,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+    }
+
+    private void image() {
+        OKClient.get().url("http://bianke.cnki.net/pulpit/api/GetFileApi/GetBlogPic?fileId=201812200939571372931.jpg").build().execute(new BitmapHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, Bitmap response) {
+                holder.setBackground(new BitmapDrawable(getResources(), response));
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+
+            }
+        });
     }
 
     @Override
