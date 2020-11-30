@@ -11,10 +11,11 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class PostFormBuilder extends BaseBuilder<PostFormBuilder> implements HasParams<PostFormBuilder> {
 
-    private List<FileInput> files = new ArrayList<>();
+    private final List<FileInput> files = new ArrayList<>();
 
     @Override
     public PostFormBuilder url(String url) {
@@ -31,9 +32,23 @@ public class PostFormBuilder extends BaseBuilder<PostFormBuilder> implements Has
     @Override
     public PostFormBuilder addHeader(String key, String value) {
         if (this.headers == null) {
-            headers = new LinkedHashMap<>();
+            this.headers = new LinkedHashMap<>();
         }
         headers.put(key, value);
+        return this;
+    }
+
+    @Override
+    public PostFormBuilder addHeaders(Map<String, String> headers) {
+        if (this.headers == null) {
+            this.headers = new LinkedHashMap<>();
+        }
+        if (headers != null && !headers.isEmpty()) {
+            Set<String> keys = headers.keySet();
+            for (String key : keys) {
+                this.headers.put(key, headers.get(key));
+            }
+        }
         return this;
     }
 

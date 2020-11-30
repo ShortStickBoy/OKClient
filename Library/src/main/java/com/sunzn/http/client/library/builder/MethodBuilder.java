@@ -6,6 +6,7 @@ import com.sunzn.http.client.library.request.RequestCall;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import okhttp3.RequestBody;
 
@@ -37,6 +38,20 @@ public class MethodBuilder extends BaseBuilder<MethodBuilder> {
             this.headers = new LinkedHashMap<>();
         }
         this.headers.put(key, value);
+        return this;
+    }
+
+    @Override
+    public MethodBuilder addHeaders(Map<String, String> headers) {
+        if (this.headers == null) {
+            this.headers = new LinkedHashMap<>();
+        }
+        if (headers != null && !headers.isEmpty()) {
+            Set<String> keys = headers.keySet();
+            for (String key : keys) {
+                this.headers.put(key, headers.get(key));
+            }
+        }
         return this;
     }
 

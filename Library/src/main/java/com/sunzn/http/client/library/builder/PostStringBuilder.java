@@ -6,6 +6,7 @@ import com.sunzn.http.client.library.request.RequestCall;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import okhttp3.MediaType;
 
@@ -39,9 +40,23 @@ public class PostStringBuilder extends BaseBuilder<PostStringBuilder> {
     @Override
     public PostStringBuilder addHeader(String key, String value) {
         if (this.headers == null) {
-            headers = new LinkedHashMap<>();
+            this.headers = new LinkedHashMap<>();
         }
         headers.put(key, value);
+        return this;
+    }
+
+    @Override
+    public PostStringBuilder addHeaders(Map<String, String> headers) {
+        if (this.headers == null) {
+            this.headers = new LinkedHashMap<>();
+        }
+        if (headers != null && !headers.isEmpty()) {
+            Set<String> keys = headers.keySet();
+            for (String key : keys) {
+                this.headers.put(key, headers.get(key));
+            }
+        }
         return this;
     }
 

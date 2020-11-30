@@ -17,6 +17,8 @@ public abstract class BaseBuilder<T extends BaseBuilder> {
 
     public abstract T addHeader(String key, String value);
 
+    public abstract T addHeaders(Map<String, String> headers);
+
     public abstract T headers(Map<String, String> headers);
 
     public abstract RequestCall build();

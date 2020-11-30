@@ -28,9 +28,23 @@ public class GetBuilder extends BaseBuilder<GetBuilder> implements HasParams<Get
     @Override
     public GetBuilder addHeader(String key, String value) {
         if (this.headers == null) {
-            headers = new LinkedHashMap<>();
+            this.headers = new LinkedHashMap<>();
         }
         headers.put(key, value);
+        return this;
+    }
+
+    @Override
+    public GetBuilder addHeaders(Map<String, String> headers) {
+        if (this.headers == null) {
+            this.headers = new LinkedHashMap<>();
+        }
+        if (headers != null && !headers.isEmpty()) {
+            Set<String> keys = headers.keySet();
+            for (String key : keys) {
+                this.headers.put(key, headers.get(key));
+            }
+        }
         return this;
     }
 
